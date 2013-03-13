@@ -7,6 +7,12 @@
   Base size is MDPI: 160dpi
 
 ********************************************************/
+// enable double clicking from the 
+// Macintosh Finder or the Windows Explorer
+#target photoshop
+
+// Make Photoshop the frontmost application
+app.bringToFront();
 
 // Document reference
 var doc = app.activeDocument;
