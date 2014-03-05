@@ -1,10 +1,10 @@
 ﻿/*******************************************************
 
   Eniris
-  2014-03-05
+  2013-03-12
 
-  Export files to XXHDPI, XHDPI, HDPI and MDPI sizes. 
-  Base size is XHDPI: 320dpi
+  Export files to XXHDPI, XHDPI, HDPI, TVDPI and LDPI sizes. 
+  Base size is MDPI: 160dpi
 
 ********************************************************/
 // enable double clicking from the 
@@ -30,7 +30,7 @@ app.displayDialogs = DialogModes.NO;
 // The document resolution
 var the_resolution = doc.resolution;
 
-if (the_resolution == '320'){// resolution is 320dpi
+if (the_resolution == '160'){// resolution is 160dpi
 
 	// PNG Settings
 	var options = new PNGSaveOptions();
@@ -39,16 +39,20 @@ if (the_resolution == '320'){// resolution is 320dpi
 
 	// Folders and resolutions
 	var folderPaths = [
-		"/elements/drawable-xhdpi/", 
+		"/elements/drawable-mdpi/", 
 		"/elements/drawable-xxhdpi/", 
+		"/elements/drawable-xhdpi/", 
 		"/elements/drawable-hdpi/", 
-		"/elements/drawable-mdpi/"
+		"/elements/drawable-tvdpi/", 
+		"/elements/drawable-ldpi/"
 	];
 	var resolutions = [
-		320, // xhdpi
+		160, // mdpi
 		480, // xxhdpi
+		320, // xhdpi
 		240, // hdpi
-		160 // mdpi
+		213, // tvdpi
+		120 // ldpi
 	];
 
 
@@ -67,7 +71,7 @@ if (the_resolution == '320'){// resolution is 320dpi
 		var theExportDocName = activeDocument.fullName.name.slice(0, -4);
 	}
 
-	for (var i=0; i<4; i++){
+	for (var i=0; i<6; i++){
 
 		// Resize the file
 		var resize = doc.resizeImage(null, null, resolutions[i], ResampleMethod.BICUBIC);
@@ -94,9 +98,9 @@ if (the_resolution == '320'){// resolution is 320dpi
 
 	alert("Android export done.");
 	
-}else{ // resolution isn't 320dpi
+}else{ // resolution isn't 160dpi
 		
-	alert ("Your document resolution isn't 320dpi") ; 
+	alert ("Your document resolution isn't 160dpi") ; 
 	
 } //end if resolution
 

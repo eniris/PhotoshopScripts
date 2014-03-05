@@ -1,11 +1,10 @@
 ﻿/*******************************************************
-
   Eniris
-  2014-03-05
+  2013-03-12
 
-  Export files to XXHDPI, XHDPI, HDPI and MDPI sizes. 
-  Base size is XHDPI: 320dpi
-
+  Export files to XXHDPI, XHDPI, HDPI, TVDPI and LDPI sizes. 
+  Base size is MDPI: 160dpi
+  
 ********************************************************/
 // enable double clicking from the 
 // Macintosh Finder or the Windows Explorer
@@ -30,7 +29,7 @@ app.displayDialogs = DialogModes.NO;
 // The document resolution
 var the_resolution = doc.resolution;
 
-if (the_resolution == '320'){// resolution is 320dpi
+if (the_resolution == '160'){// resolution is 160dpi
 
 	// PNG Settings
 	var options = new PNGSaveOptions();
@@ -38,18 +37,26 @@ if (the_resolution == '320'){// resolution is 320dpi
 	options.interlaced = false;
 
 	// Folders and resolutions
-	var folderPaths = [
-		"/elements/drawable-xhdpi/", 
-		"/elements/drawable-xxhdpi/", 
-		"/elements/drawable-hdpi/", 
-		"/elements/drawable-mdpi/"
-	];
-	var resolutions = [
-		320, // xhdpi
-		480, // xxhdpi
-		240, // hdpi
-		160 // mdpi
-	];
+		// Ask user for input folder
+		var inputFolder = Folder.selectDialog("Select a folder to process");
+		if (inputFolder == null) throw "No folder selected. Exting script.";
+		
+		var folderPaths = [
+			inputFolder+"/elements/drawable-mdpi/", 
+			inputFolder+"/elements/drawable-xxhdpi/", 
+			inputFolder+"/elements/drawable-xhdpi/", 
+			inputFolder+"/elements/drawable-hdpi/", 
+			inputFolder+"/elements/drawable-tvdpi/", 
+			inputFolder+"/elements/drawable-ldpi/"
+		];
+		var resolutions = [
+			160, // mdpi
+			480, // xxhdpi
+			320, // xhdpi
+			240, // hdpi
+			213, // tvdpi
+			120 // ldpi
+		];
 
 
 	/***********************
@@ -62,22 +69,21 @@ if (the_resolution == '320'){// resolution is 320dpi
 	// Ask user for input folder
 	var theExportDocName = prompt('Exported file name. Leave empty if you want to actual file name.', '');
 	//alert (theExportDocName);
-	if ( !theExportDocName ){
+	if ( !theExportDocName){
 		// Document Name for file export name
 		var theExportDocName = activeDocument.fullName.name.slice(0, -4);
 	}
 
-	for (var i=0; i<4; i++){
+	for (var i=0; i<6; i++){
 
-		// Resize the file
 		var resize = doc.resizeImage(null, null, resolutions[i], ResampleMethod.BICUBIC);
 
-		// Create new file and save it
+		// Create new File and save it
 		var saveFile = new File(decodeURI(activeDocument.fullName.fsName).slice(0, -4) + ".png");
 		app.activeDocument.saveAs(saveFile, options, false, Extension.LOWERCASE);
 
 		// Copy file into new folder
-		var destFolder = activeDocument.fullName.parent + folderPaths[i];
+		var destFolder = folderPaths[i];
 
 		if( !Folder(destFolder).exists ){
 			Folder(destFolder).create();
@@ -94,9 +100,9 @@ if (the_resolution == '320'){// resolution is 320dpi
 
 	alert("Android export done.");
 	
-}else{ // resolution isn't 320dpi
+}else{ // resolution isn't 160dpi
 		
-	alert ("Your document resolution isn't 320dpi") ; 
+	alert ("Your document resolution isn't 160dpi") ; 
 	
 } //end if resolution
 

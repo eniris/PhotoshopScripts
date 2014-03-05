@@ -1,9 +1,9 @@
 ﻿/*******************************************************
   Eniris
-  2013-03-12
+  2014-03-05
 
-  Export files to XXHDPI, XHDPI, HDPI, TVDPI and LDPI sizes. 
-  Base size is MDPI: 160dpi
+  Export files to XXHDPI, XHDPI, HDPI and MDPI sizes. 
+  Base size is XHDPI: 320dpi
   
 ********************************************************/
 // enable double clicking from the 
@@ -29,7 +29,7 @@ app.displayDialogs = DialogModes.NO;
 // The document resolution
 var the_resolution = doc.resolution;
 
-if (the_resolution == '160'){// resolution is 160dpi
+if (the_resolution == '320'){// resolution is 320dpi
 
 	// PNG Settings
 	var options = new PNGSaveOptions();
@@ -42,20 +42,16 @@ if (the_resolution == '160'){// resolution is 160dpi
 		if (inputFolder == null) throw "No folder selected. Exting script.";
 		
 		var folderPaths = [
-			inputFolder+"/elements/drawable-mdpi/", 
-			inputFolder+"/elements/drawable-xxhdpi/", 
 			inputFolder+"/elements/drawable-xhdpi/", 
+			inputFolder+"/elements/drawable-xxhdpi/", 
 			inputFolder+"/elements/drawable-hdpi/", 
-			inputFolder+"/elements/drawable-tvdpi/", 
-			inputFolder+"/elements/drawable-ldpi/"
+			inputFolder+"/elements/drawable-mdpi/"
 		];
 		var resolutions = [
-			160, // mdpi
-			480, // xxhdpi
-			320, // xhdpi
-			240, // hdpi
-			213, // tvdpi
-			120 // ldpi
+            320, // xhdpi
+            480, // xxhdpi
+            240, // hdpi
+            160 // mdpi
 		];
 
 
@@ -74,7 +70,7 @@ if (the_resolution == '160'){// resolution is 160dpi
 		var theExportDocName = activeDocument.fullName.name.slice(0, -4);
 	}
 
-	for (var i=0; i<6; i++){
+	for (var i=0; i<4; i++){
 
 		var resize = doc.resizeImage(null, null, resolutions[i], ResampleMethod.BICUBIC);
 
@@ -100,9 +96,9 @@ if (the_resolution == '160'){// resolution is 160dpi
 
 	alert("Android export done.");
 	
-}else{ // resolution isn't 160dpi
+}else{ // resolution isn't 320dpi
 		
-	alert ("Your document resolution isn't 160dpi") ; 
+	alert ("Your document resolution isn't 320dpi") ; 
 	
 } //end if resolution
 
